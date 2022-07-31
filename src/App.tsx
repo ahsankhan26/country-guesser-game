@@ -27,9 +27,13 @@ const App: React.FC = () => {
     const target = e.target as HTMLInputElement;
 
     const name = countryNames.find(
-      (item) => item === target.value.toUpperCase()
+      (item) => item === target.value?.toUpperCase()
     );
-    if (name) {
+    const temp = data.find(
+      (item) => item.country === countryCodes[name as keyof typeof countryCodes]
+    );
+
+    if (name && !temp) {
       correctGuess(name);
       target.value = '';
     }
@@ -55,7 +59,21 @@ const App: React.FC = () => {
           onInput={checkCountry}
         />
       </div>
-      <WorldMap color='#0099ff' size='xl' data={data} richInteraction frame />
+      <WorldMap
+        size='xxl'
+        data={data}
+        richInteraction
+        frame
+        styleFunction={(countryCode) => {
+          console.log(countryCode);
+          return {
+            fill: data.find((item) => item.country === countryCode.countryCode)
+              ? '#43c76f'
+              : '#fafafa',
+            stroke: 'black',
+          };
+        }}
+      />
     </div>
   );
 };
