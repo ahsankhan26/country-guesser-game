@@ -41,39 +41,37 @@ const App: React.FC = () => {
 
   return (
     <div className='App'>
-      <div>
-        <label
-          htmlFor='countryName'
-          style={{
-            display: 'block',
-            marginBottom: 2,
-            fontSize: 'small',
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <div>
+          <input
+            type='text'
+            placeholder='Country Name'
+            onInput={checkCountry}
+          />
+        </div>
+        <WorldMap
+          size='xxl'
+          data={data}
+          richInteraction
+          frame
+          styleFunction={(countryCode) => {
+            return {
+              fill: data.find(
+                (item) => item.country === countryCode.countryCode
+              )
+                ? '#43c76f'
+                : '#fafafa',
+              stroke: 'black',
+            };
           }}
-        >
-          Country Name
-        </label>
-        <input
-          type='text'
-          id='countryName'
-          placeholder='Country Name'
-          onInput={checkCountry}
         />
       </div>
-      <WorldMap
-        size='xxl'
-        data={data}
-        richInteraction
-        frame
-        styleFunction={(countryCode) => {
-          console.log(countryCode);
-          return {
-            fill: data.find((item) => item.country === countryCode.countryCode)
-              ? '#43c76f'
-              : '#fafafa',
-            stroke: 'black',
-          };
-        }}
-      />
     </div>
   );
 };
