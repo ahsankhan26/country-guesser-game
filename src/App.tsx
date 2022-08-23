@@ -8,6 +8,8 @@ const App: React.FC = () => {
     { country: '', value: 0 },
   ]);
 
+  console.log(data);
+
   const correctGuess = (countryName: string) => {
     const countryCode = countryCodes[countryName as keyof typeof countryCodes];
     const dataCopy = [...data];
